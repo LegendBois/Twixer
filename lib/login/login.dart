@@ -51,12 +51,11 @@ class Login extends StatelessWidget {
       logo: 'assets/images/twixer-logo.png', //works
       onLogin: _authUser,
       onSignup: _authUser,
-      onSubmitAnimationCompleted: _onLogin(context),
+      onSubmitAnimationCompleted: () {
+        //Don't add a function for this
+        Navigator.of(context).pushNamed(HomeRoute);
+      },
       onRecoverPassword: _recoverPassword,
     );
-  }
-
-  _onLogin(BuildContext context) {
-    Navigator.pushNamed(context, HomeRoute);
   }
 }
