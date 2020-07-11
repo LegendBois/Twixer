@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 
-import 'package:twixer/home/home.dart';
+import 'package:twixer/routes.dart';
 
 const users = const {
   'majithiaanmol12@gmail.com': '123456',
@@ -51,12 +51,12 @@ class Login extends StatelessWidget {
       logo: 'assets/images/twixer-logo.png', //works
       onLogin: _authUser,
       onSignup: _authUser,
-      onSubmitAnimationCompleted: () {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => Home(),
-        ));
-      },
+      onSubmitAnimationCompleted: _onLogin(context),
       onRecoverPassword: _recoverPassword,
     );
+  }
+
+  _onLogin(BuildContext context) {
+    Navigator.pushNamed(context, HomeRoute);
   }
 }
