@@ -15,9 +15,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      _handleStartScreen();
-    });
+    // SchedulerBinding.instance.addPostFrameCallback((_) {
+    //   _handleStartScreen();
+    // });
+    _handleStartScreen();
   }
 
   @override
@@ -39,9 +40,9 @@ class _SplashScreenState extends State<SplashScreen> {
     }
     print(prefs.getBool('isLoggedIn'));
     if (prefs.getBool('isLoggedIn')) {
-      Navigator.pushNamed(context, HomeRoute);
+      Navigator.popAndPushNamed(context, HomeRoute);
     } else {
-      Navigator.pushNamed(context, LoginRoute);
+      Navigator.popAndPushNamed(context, LoginRoute);
     }
   }
 }

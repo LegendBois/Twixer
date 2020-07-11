@@ -60,6 +60,8 @@ class Login extends StatelessWidget {
   }
 
   _onLogin(BuildContext context) {
-    Navigator.pushNamed(context, HomeRoute);
+    print("Logging in");
+    //Uncomment this to break app. IDK why and too exhausted to find out why, will fix later
+    //Navigator.pushNamed(context, HomeRoute);
   }
 }
