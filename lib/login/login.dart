@@ -44,11 +44,11 @@ class Login extends StatelessWidget {
         primaryColor: Color.fromARGB(255, 194, 50, 100),
         accentColor: Colors.white,
         inputTheme: InputDecorationTheme(
-          fillColor: Colors.white,          
+          fillColor: Colors.white,
         ),
       ),
       title: 'TWIXER',
-      logo: '../../../assets/images/twixer-logo.png', //get this to work
+      logo: 'assets/images/twixer-logo.png', //works
       onLogin: _authUser,
       onSignup: _authUser,
       onSubmitAnimationCompleted: () {
