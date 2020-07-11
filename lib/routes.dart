@@ -1,2 +1,3 @@
 const HomeRoute = '/home';
-const LoginRoute = '/';
+const LoginRoute = '/login';
+const Loading = '/';

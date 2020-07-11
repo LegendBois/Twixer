@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'home/home.dart';
 import 'login/login.dart';
 import 'routes.dart';
+import 'splash_screen/splash_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Twixer',
       onGenerateRoute: _routes(),
+      initialRoute: Loading,
       theme: _theme(),
     );
   }
@@ -25,6 +27,9 @@ class MyApp extends StatelessWidget {
       final Map<String, dynamic> arguments = settings.arguments;
       Widget screen;
       switch (settings.name) {
+        case Loading:
+          screen = SplashScreen();
+          break;
         case HomeRoute:
           screen = Home();
           break;
@@ -32,11 +37,13 @@ class MyApp extends StatelessWidget {
           screen = Login();
           break;
         default:
-          screen = Login();
+          screen = SplashScreen();
           break;
       }
       return MaterialPageRoute(
-          builder: (BuildContext context) => screen, settings: settings);
+        builder: (BuildContext context) => screen,
+        settings: settings,
+      );
     };
   }
 
