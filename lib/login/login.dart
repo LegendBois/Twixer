@@ -21,9 +21,15 @@ class Login extends StatelessWidget {
       if (users[data.name] != data.password) {
         return 'Password does not match';
       }
-      //_loginUser(data.name);
+      _loginUser(data.name);
       return null;
     });
+  }
+
+  _loginUser(String name) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isLoggedIn', true);
+    prefs.setString('username', name);
   }
 
   Future<String> _recoverPassword(String name) {
@@ -54,14 +60,10 @@ class Login extends StatelessWidget {
       logo: 'assets/images/twixer-logo.png', //works
       onLogin: _authUser,
       onSignup: _authUser,
-      onSubmitAnimationCompleted: _onLogin(context),
+      onSubmitAnimationCompleted: () {
+        Navigator.pushReplacementNamed(context, HomeRoute);
+      },
       onRecoverPassword: _recoverPassword,
     );
-  }
-
-  _onLogin(BuildContext context) {
-    print("Logging in");
-    //Uncomment this to break app. IDK why and too exhausted to find out why, will fix later
-    //Navigator.pushNamed(context, HomeRoute);
   }
 }

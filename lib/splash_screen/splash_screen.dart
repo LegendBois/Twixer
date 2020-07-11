@@ -38,7 +38,6 @@ class _SplashScreenState extends State<SplashScreen> {
     if (prefs.getBool('isLoggedIn') == null) {
       await prefs.setBool('isLoggedIn', false);
     }
-    print(prefs.getBool('isLoggedIn'));
     if (prefs.getBool('isLoggedIn')) {
       Navigator.popAndPushNamed(context, HomeRoute);
     } else {
