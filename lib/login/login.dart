@@ -61,6 +61,7 @@ class Login extends StatelessWidget {
       onLogin: _authUser,
       onSignup: _authUser,
       onSubmitAnimationCompleted: () {
+        //Don't add a function for this
         Navigator.pushReplacementNamed(context, HomeRoute);
       },
       onRecoverPassword: _recoverPassword,
