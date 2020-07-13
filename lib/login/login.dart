@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:twixer/routes.dart';
+import '../routes.dart';
 
 const users = const {
   'majithiaanmol12@gmail.com': '123456',
@@ -57,7 +57,7 @@ class Login extends StatelessWidget {
         ),
       ),
       title: 'TWIXER',
-      logo: 'assets/images/twixer-logo.png', //works
+      logo: 'assets/images/twixer_logo.png', //works
       onLogin: _authUser,
       onSignup: _authUser,
       onSubmitAnimationCompleted: () {
