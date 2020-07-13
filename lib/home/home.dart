@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("Home loaded");
     return Scaffold(
       appBar: AppBar(
         title: Text('Home'),

@@ -1,4 +1,4 @@
-# twixer
+# Twixer
 
 A new Flutter project.
 
