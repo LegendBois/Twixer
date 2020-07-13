@@ -1,4 +1,4 @@
-package com.example.twixer
+package com.legendbois.Twixer
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:twixer/routes.dart';
+import 'package:Twixer/routes.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key key}) : super(key: key);
@@ -15,9 +15,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // SchedulerBinding.instance.addPostFrameCallback((_) {
-    //   _handleStartScreen();
-    // });
     _handleStartScreen();
   }
 
@@ -26,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Container(
       decoration: BoxDecoration(color: Colors.black),
       child: Image.asset(
-        "assets/images/twixer-logo.png",
+        "assets/images/twixer_logo.png",
         fit: BoxFit.contain,
       ),
     );

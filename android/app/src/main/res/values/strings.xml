@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Twixer</string>
+    <string name="splash_screen_description">App splash screen</string>
+</resources>
