@@ -31,6 +31,7 @@ class NetworkUtil {
         encoding: encoding,
       );
     } catch (e) {
+      print(e);
       return e.toString();
     }
   }
