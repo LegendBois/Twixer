@@ -7,7 +7,7 @@ import (
 )
 
 type Env struct {
-	DB *sql.DB
+	db *sql.DB
 }
 
 func NewDB(dataSourceName string) (*sql.DB, error) {

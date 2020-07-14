@@ -12,10 +12,9 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-var db *sql.DB
 var err error
 
-func registration(w http.ResponseWriter, r *http.Request) {
+func (env *Env) registration(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	resp := Response{
 		Error:   false,
@@ -42,7 +41,7 @@ func registration(w http.ResponseWriter, r *http.Request) {
 	// If all Succeed -- DB ops
 	var user string
 
-	err := db.QueryRow("SELECT email FROM users WHERE email=$1", testusername).Scan(&user)
+	err := env.db.QueryRow("SELECT email FROM users WHERE email=$1", testusername).Scan(&user)
 	fmt.Println(user, err)
 	switch {
 	case err == sql.ErrNoRows:
@@ -54,7 +53,7 @@ func registration(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		userKey := generatePassword()
-		_, err = db.Exec("INSERT INTO users values($1,$2,$3)", testusername, hashedPassword, userKey)
+		_, err = env.db.Exec("INSERT INTO users values($1,$2,$3)", testusername, hashedPassword, userKey)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			resp.sendError("User cannot be Created.")
@@ -79,7 +78,7 @@ func registration(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func post(w http.ResponseWriter, r *http.Request) {
+func (env *Env) login(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	r.ParseForm()
 
@@ -109,7 +108,7 @@ func post(w http.ResponseWriter, r *http.Request) {
 	var databasePassword string
 	var databaseUserKey string
 
-	err := db.QueryRow("SELECT email, password, current_key FROM users WHERE email=$1", testusername).Scan(&databaseUsername, &databasePassword, &databaseUserKey)
+	err := env.db.QueryRow("SELECT email, password, current_key FROM users WHERE email=$1", testusername).Scan(&databaseUsername, &databasePassword, &databaseUserKey)
 
 	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
@@ -140,16 +139,18 @@ func notFound(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	db, err = NewDB("user=apitest password=123456 dbname=twixer sslmode=disable")
+	db, err := NewDB("user=apitest password=123456 dbname=twixer sslmode=disable")
 	if err != nil {
 		panic(err.Error())
 	}
 	defer db.Close()
 
+	env := &Env{db: db}
+
 	r := mux.NewRouter()
 
-	r.HandleFunc("/login", post).Methods(http.MethodPost)
-	r.HandleFunc("/register", registration).Methods(http.MethodPost)
+	r.HandleFunc("/login", env.login).Methods(http.MethodPost)
+	r.HandleFunc("/register", env.registration).Methods(http.MethodPost)
 	r.HandleFunc("/", notFound)
 	log.Fatal(http.ListenAndServe(":8081", r))
 
