@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../routes.dart';
+import 'package:Twixer/routes.dart';
+import 'package:Twixer/utils/rest_ds.dart';
 
 const users = const {
   'majithiaanmol12@gmail.com': '123456',
@@ -10,26 +11,25 @@ const users = const {
 };
 
 class Login extends StatelessWidget {
+  RestDatasource api = new RestDatasource();
   Duration get loginTime => Duration(milliseconds: 2250);
-
   Future<String> _authUser(LoginData data) {
     //print('Name: ${data.name}, Password: ${data.password}');
-    return Future.delayed(loginTime).then((_) {
-      if (!users.containsKey(data.name)) {
-        return 'Username not exists';
+    return api.login(data.name, data.password).then((response) {
+      if (response[0] == "INVALID" || response[0] == null) {
+        return response[1];
+      } else {
+        _loginUser(data.name, response[0]);
+        return null;
       }
-      if (users[data.name] != data.password) {
-        return 'Password does not match';
-      }
-      _loginUser(data.name);
-      return null;
     });
   }
 
-  _loginUser(String name) async {
+  _loginUser(String name, String userkey) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool('isLoggedIn', true);
     prefs.setString('username', name);
+    prefs.setString('userkey', userkey);
   }
 
   Future<String> _recoverPassword(String name) {

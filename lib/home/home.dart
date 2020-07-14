@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:Twixer/routes.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -7,6 +10,13 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Home'),
+        actions: <Widget>[
+          // action button
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () => _logout(context),
+          ),
+        ],
       ),
       body: Center(
         child: Text('Placeholder'),
@@ -37,5 +47,13 @@ class Home extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _logout(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isLoggedIn', false);
+    prefs.setString('userkey', "INVALID");
+    prefs.setString('username', "");
+    Navigator.pushReplacementNamed(context, LoginRoute);
   }
 }
