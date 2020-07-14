@@ -24,7 +24,7 @@ func registration(w http.ResponseWriter, r *http.Request) {
 
 	r.ParseForm()
 	var testapikey string = r.FormValue("apikey")
-	var testusername string = r.FormValue("username")
+	var testusername string = r.FormValue("email")
 	var testpassword string = r.FormValue("password")
 	if testusername == "" || testpassword == "" || testapikey == "" {
 		w.WriteHeader(http.StatusBadRequest)
@@ -89,7 +89,7 @@ func post(w http.ResponseWriter, r *http.Request) {
 		UserKey: DefaultUserKey}
 
 	var testapikey string = r.FormValue("apikey")
-	var testusername string = r.FormValue("username")
+	var testusername string = r.FormValue("email")
 	var testpassword string = r.FormValue("password")
 	if testusername == "" || testpassword == "" || testapikey == "" {
 		w.WriteHeader(http.StatusBadRequest)
@@ -140,17 +140,11 @@ func notFound(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-
-	db, err = sql.Open("postgres", "user=apitest password=123456 dbname=twixer sslmode=disable")
+	db, err = NewDB("user=apitest password=123456 dbname=twixer sslmode=disable")
 	if err != nil {
 		panic(err.Error())
 	}
 	defer db.Close()
-
-	err = db.Ping()
-	if err != nil {
-		panic(err.Error())
-	}
 
 	r := mux.NewRouter()
 
