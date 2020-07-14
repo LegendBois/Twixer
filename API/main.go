@@ -22,19 +22,13 @@ func (env *Env) registration(w http.ResponseWriter, r *http.Request) {
 		UserKey: DefaultUserKey}
 
 	r.ParseForm()
-	var testapikey string = r.FormValue("apikey")
+
 	var testusername string = r.FormValue("email")
 	var testpassword string = r.FormValue("password")
-	if testusername == "" || testpassword == "" || testapikey == "" {
-		w.WriteHeader(http.StatusBadRequest)
-		resp.sendError("Please Fill all the fields")
-		json.NewEncoder(w).Encode(resp)
-		return
-	}
 
-	if testapikey != TrueAPIKey {
+	if !allParams(r) {
 		w.WriteHeader(http.StatusBadRequest)
-		resp.sendError("Invalid API key ._.")
+		resp.sendError("Invalid API request")
 		json.NewEncoder(w).Encode(resp)
 		return
 	}
@@ -87,19 +81,11 @@ func (env *Env) login(w http.ResponseWriter, r *http.Request) {
 		Message: "",
 		UserKey: DefaultUserKey}
 
-	var testapikey string = r.FormValue("apikey")
 	var testusername string = r.FormValue("email")
 	var testpassword string = r.FormValue("password")
-	if testusername == "" || testpassword == "" || testapikey == "" {
+	if !allParams(r) {
 		w.WriteHeader(http.StatusBadRequest)
-		resp.sendError("Please Fill all the fields")
-		json.NewEncoder(w).Encode(resp)
-		return
-	}
-
-	if testapikey != TrueAPIKey {
-		w.WriteHeader(http.StatusBadRequest)
-		resp.sendError("Invalid API key ._.")
+		resp.sendError("Invalid API request")
 		json.NewEncoder(w).Encode(resp)
 		return
 	}
