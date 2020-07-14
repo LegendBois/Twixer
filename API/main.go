@@ -1,15 +1,12 @@
 package main
 
 import (
-	"database/sql"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
-	"golang.org/x/crypto/bcrypt"
 )
 
 var err error
@@ -23,50 +20,20 @@ func (env *Env) registration(w http.ResponseWriter, r *http.Request) {
 
 	r.ParseForm()
 
-	var testusername string = r.FormValue("email")
-	var testpassword string = r.FormValue("password")
-
 	if !allParams(r) {
 		w.WriteHeader(http.StatusBadRequest)
 		resp.sendError("Invalid API request")
-		json.NewEncoder(w).Encode(resp)
-		return
-	}
-	// If all Succeed -- DB ops
-	var user string
+	} else {
 
-	err := env.db.QueryRow("SELECT email FROM users WHERE email=$1", testusername).Scan(&user)
-	fmt.Println(user, err)
-	switch {
-	case err == sql.ErrNoRows:
-		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(testpassword), bcrypt.DefaultCost)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			resp.sendError("User cannot be Created.")
-			json.NewEncoder(w).Encode(resp)
-			return
-		}
-		userKey := generatePassword()
-		_, err = env.db.Exec("INSERT INTO users values($1,$2,$3)", testusername, hashedPassword, userKey)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			resp.sendError("User cannot be Created.")
-			json.NewEncoder(w).Encode(resp)
-			return
-		}
-		w.WriteHeader(http.StatusCreated)
-		resp.Message = "User Created Successfully!"
-		resp.UserKey = userKey
-		break
+		// If all Succeed -- DB ops
 
-	case err == nil:
-		w.WriteHeader(http.StatusConflict)
-		resp.sendError("User Already Exists!")
-		break
-	default:
-		w.WriteHeader(http.StatusInternalServerError)
-		resp.sendError("Server error")
-		break
+		statusCode, err := checkRegistration(env.db, r.FormValue("email"), r.FormValue("password"), &resp)
+		w.WriteHeader(statusCode)
+		if err != nil {
+			log.Println("Registration Error: " + r.FormValue("email") + " " + err.Error())
+		} else {
+			log.Println("Registration successful: " + r.FormValue("email"))
+		}
 	}
 	json.NewEncoder(w).Encode(resp)
 	return
@@ -81,39 +48,19 @@ func (env *Env) login(w http.ResponseWriter, r *http.Request) {
 		Message: "",
 		UserKey: DefaultUserKey}
 
-	var testusername string = r.FormValue("email")
-	var testpassword string = r.FormValue("password")
 	if !allParams(r) {
 		w.WriteHeader(http.StatusBadRequest)
 		resp.sendError("Invalid API request")
-		json.NewEncoder(w).Encode(resp)
-		return
+	} else {
+		// If all Succeed -- DB ops
+		statusCode, err := checkLogin(env.db, r.FormValue("email"), r.FormValue("password"), &resp)
+		w.WriteHeader(statusCode)
+		if err != nil {
+			log.Println("Invalid login: " + r.FormValue("email") + " " + err.Error())
+		} else {
+			log.Println("Login successful: " + r.FormValue("email"))
+		}
 	}
-	// If all Succeed -- DB ops
-	var databaseUsername string
-	var databasePassword string
-	var databaseUserKey string
-
-	err := env.db.QueryRow("SELECT email, password, current_key FROM users WHERE email=$1", testusername).Scan(&databaseUsername, &databasePassword, &databaseUserKey)
-
-	if err != nil {
-		w.WriteHeader(http.StatusUnauthorized)
-		resp.sendError("Invalid Username or Password")
-		json.NewEncoder(w).Encode(resp)
-		return
-	}
-
-	err = bcrypt.CompareHashAndPassword([]byte(databasePassword), []byte(testpassword))
-
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		resp.sendError("Invalid Username or Password")
-		json.NewEncoder(w).Encode(resp)
-		return
-	}
-	w.WriteHeader(http.StatusOK)
-	resp.Message = "Login Success! Welcome " + testusername
-	resp.UserKey = databaseUserKey
 	json.NewEncoder(w).Encode(resp)
 	return
 }

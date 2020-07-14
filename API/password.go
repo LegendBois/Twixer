@@ -12,6 +12,6 @@ func generatePassword() string {
 		log.Fatal(err)
 		return "INVALID"
 	}
-	log.Printf(res)
+	//log.Printf(res)
 	return res
 }
