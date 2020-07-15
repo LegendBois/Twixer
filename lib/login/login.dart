@@ -13,10 +13,18 @@ const users = const {
 class Login extends StatelessWidget {
   RestDatasource api = new RestDatasource();
   Duration get loginTime => Duration(milliseconds: 2250);
-  Future<String> _authUser(LoginData data) {
-    return null; //testing
+  Future<String> _login(LoginData data) {
+    return _authUser(data, true);
+  }
+
+  Future<String> _signUp(LoginData data) {
+    return _authUser(data, false);
+  }
+
+  Future<String> _authUser(LoginData data, bool login) {
+    //return null; //testing
     //print('Name: ${data.name}, Password: ${data.password}');
-    return api.login(data.name, data.password).then((response) {
+    return api.login(data.name, data.password, login).then((response) {
       if (response[0] == "INVALID" || response[0] == null) {
         return response[1];
       } else {
@@ -59,8 +67,8 @@ class Login extends StatelessWidget {
       ),
       title: 'TWIXER',
       logo: 'assets/images/twixer_logo.png', //works
-      onLogin: _authUser,
-      onSignup: _authUser,
+      onLogin: _login,
+      onSignup: _signUp,
       onSubmitAnimationCompleted: () {
         //Don't add a function for this
         Navigator.pushReplacementNamed(context, HomeRoute);
