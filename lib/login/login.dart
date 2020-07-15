@@ -14,6 +14,7 @@ class Login extends StatelessWidget {
   RestDatasource api = new RestDatasource();
   Duration get loginTime => Duration(milliseconds: 2250);
   Future<String> _authUser(LoginData data) {
+    return null; //testing
     //print('Name: ${data.name}, Password: ${data.password}');
     return api.login(data.name, data.password).then((response) {
       if (response[0] == "INVALID" || response[0] == null) {
