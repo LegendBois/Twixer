@@ -7,7 +7,10 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text('Twixer | Home'),
+      title: Text(
+        'Twixer | Home',
+        style: Theme.of(context).appBarTheme.textTheme.headline6,
+      ),
       actions: <Widget>[
         // action button
         IconButton(

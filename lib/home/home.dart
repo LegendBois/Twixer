@@ -64,76 +64,64 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: HomeAppBar(),
       body: ListView(
-        padding: EdgeInsets.only(top: 8.0),
-        children: <Widget>[
-          SizedBox(
-            height: 300,
-            child: new Swiper(
-              itemCount: _itemCount,
-              itemHeight: 200.0,
-              itemBuilder: _newsItem,
-              fade: _fade,
-              index: _currentIndex,
-              onIndexChanged: (int index) {
-                setState(() {
-                  _currentIndex = index;
-                });
-              },
-              curve: _curve,
-              scale: _scale,
-              controller: new SwiperController(),
-              outer: _outer,
-              viewportFraction: _viewportFraction,
-              autoplayDelay: _autoplayDelay,
-              loop: _loop,
-              autoplay: _autoplay,
-              scrollDirection: _scrollDirection,
-              indicatorLayout: PageIndicatorLayout.COLOR,
-              autoplayDisableOnInteraction: _autoplayDisableOnInteraction,
+          padding: EdgeInsets.only(top: 8.0),
+          children: <Widget>[
+            SizedBox(
+              height: 300,
+              child: new Swiper(
+                itemCount: _itemCount,
+                itemHeight: 200.0,
+                itemBuilder: _newsItem,
+                fade: _fade,
+                index: _currentIndex,
+                onIndexChanged: (int index) {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                },
+                curve: _curve,
+                scale: _scale,
+                controller: new SwiperController(),
+                outer: _outer,
+                viewportFraction: _viewportFraction,
+                autoplayDelay: _autoplayDelay,
+                loop: _loop,
+                autoplay: _autoplay,
+                scrollDirection: _scrollDirection,
+                indicatorLayout: PageIndicatorLayout.COLOR,
+                autoplayDisableOnInteraction: _autoplayDisableOnInteraction,
+              ),
             ),
-          ),
-          SizedBox(height: 32),
-          SizedBox(
-            height: 600,
-            child: new Swiper(
-              itemCount: 4,
-              itemHeight: 300,
-              itemBuilder: _gamesItem,
-              fade: _fade,
-              index: _currentGameIndex,
-              onIndexChanged: (int index) {
-                setState(() {
-                  _currentGameIndex = index;
-                });
-              },
-              curve: _curve,
-              scale: 0.2,
-              controller: new SwiperController(),
-              outer: _outer,
-              viewportFraction: 0.5,
-              autoplayDelay: _autoplayDelay,
-              loop: false,
-              autoplay: _autoplay,
-              scrollDirection: Axis.vertical,
-              indicatorLayout: PageIndicatorLayout.COLOR,
-              autoplayDisableOnInteraction: _autoplayDisableOnInteraction,
-            ),
-          ),
-        ],
-      ),
+            SizedBox(height: 32),
+          ]..addAll(games.map((game) => _gamesItem(context, game.id)))),
       drawer: HomeDrawer(),
     );
   }
 
   Widget _gamesItem(BuildContext context, int index) {
-    return new Stack(
-      fit: StackFit.expand,
-      children: <Widget>[
-        Image.network(
-          this.games[index].imageLink,
-          fit: BoxFit.cover,
-        ),
-      ],
+    return new Card(
+      color: Color.fromARGB(120, 194, 50, 100),
+      child: Row(
+        children: <Widget>[
+          Image.network(
+            this.games[index].imageLink,
+            fit: BoxFit.fitHeight,
+            width: 100,
+            height: 150,
+          ),
+          Center(
+            child: Container(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(this.games[index].title),
+            ),
+          ),
+        ],
+      ),
+      elevation: 3,
+      shadowColor: Color.fromARGB(255, 194, 50, 100),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5.0),
+      ),
     );
   }
 
@@ -166,8 +154,7 @@ class _HomeState extends State<Home> {
                 duration: _animationDuration,
                 child: Container(
                   padding: const EdgeInsets.all(16.0),
-                  child: Text(news[index].imageLink,
-                      style: TextStyle(fontSize: 16)),
+                  child: Text(news[index].imageLink),
                 ),
               ),
             ),
@@ -183,8 +170,8 @@ class _HomeState extends State<Home> {
                 duration: _animationDuration,
                 child: Container(
                   padding: const EdgeInsets.all(16.0),
-                  child:
-                      Text(news[index].title, style: TextStyle(fontSize: 16)),
+                  child: Text(news[index].title,
+                      style: Theme.of(context).textTheme.headline6),
                 ),
               ),
             ),

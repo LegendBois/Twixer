@@ -5,6 +5,8 @@ import 'login/login.dart';
 import 'routes.dart';
 import 'splash_screen/splash_screen.dart';
 
+import 'package:Twixer/style.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -49,8 +51,17 @@ class MyApp extends StatelessWidget {
 
   ThemeData _theme() {
     return ThemeData(
-      fontFamily: 'Roboto',
+      appBarTheme: AppBarTheme(
+        textTheme: TextTheme(
+          headline6: AppBarTextStyle,
+        ),
+      ),
+      textTheme: TextTheme(
+        headline6: TitleTextStyle,
+        bodyText2: Body2TextStyle,
+      ),
       //textTheme: TextTheme(),
+      scaffoldBackgroundColor: Colors.black,
       brightness: Brightness.dark,
       primaryColor: Color.fromARGB(255, 194, 50, 100),
       accentColor: Color.fromARGB(255, 85, 33, 99),
