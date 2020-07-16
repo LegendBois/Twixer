@@ -63,65 +63,63 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HomeAppBar(),
-      body: Padding(
+      body: ListView(
         padding: EdgeInsets.only(top: 8.0),
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: new Swiper(
-                itemCount: _itemCount,
-                itemHeight: 200.0,
-                itemBuilder: _newsItem,
-                fade: _fade,
-                index: _currentIndex,
-                onIndexChanged: (int index) {
-                  setState(() {
-                    _currentIndex = index;
-                  });
-                },
-                curve: _curve,
-                scale: _scale,
-                controller: new SwiperController(),
-                outer: _outer,
-                viewportFraction: _viewportFraction,
-                autoplayDelay: _autoplayDelay,
-                loop: _loop,
-                autoplay: _autoplay,
-                scrollDirection: _scrollDirection,
-                indicatorLayout: PageIndicatorLayout.COLOR,
-                autoplayDisableOnInteraction: _autoplayDisableOnInteraction,
-              ),
+        children: <Widget>[
+          SizedBox(
+            height: 300,
+            child: new Swiper(
+              itemCount: _itemCount,
+              itemHeight: 200.0,
+              itemBuilder: _newsItem,
+              fade: _fade,
+              index: _currentIndex,
+              onIndexChanged: (int index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+              curve: _curve,
+              scale: _scale,
+              controller: new SwiperController(),
+              outer: _outer,
+              viewportFraction: _viewportFraction,
+              autoplayDelay: _autoplayDelay,
+              loop: _loop,
+              autoplay: _autoplay,
+              scrollDirection: _scrollDirection,
+              indicatorLayout: PageIndicatorLayout.COLOR,
+              autoplayDisableOnInteraction: _autoplayDisableOnInteraction,
             ),
-            SizedBox(height: 32),
-            Expanded(
-              flex: 2,
-              child: new Swiper(
-                itemCount: 4,
-                itemWidth: 250,
-                itemBuilder: _gamesItem,
-                fade: _fade,
-                index: _currentGameIndex,
-                onIndexChanged: (int index) {
-                  setState(() {
-                    _currentGameIndex = index;
-                  });
-                },
-                curve: _curve,
-                scale: 0.05,
-                controller: new SwiperController(),
-                outer: _outer,
-                viewportFraction: 0.5,
-                autoplayDelay: _autoplayDelay,
-                loop: _loop,
-                autoplay: _autoplay,
-                scrollDirection: _scrollDirection,
-                indicatorLayout: PageIndicatorLayout.COLOR,
-                autoplayDisableOnInteraction: _autoplayDisableOnInteraction,
-              ),
+          ),
+          SizedBox(height: 32),
+          SizedBox(
+            height: 600,
+            child: new Swiper(
+              itemCount: 4,
+              itemHeight: 300,
+              itemBuilder: _gamesItem,
+              fade: _fade,
+              index: _currentGameIndex,
+              onIndexChanged: (int index) {
+                setState(() {
+                  _currentGameIndex = index;
+                });
+              },
+              curve: _curve,
+              scale: 0.2,
+              controller: new SwiperController(),
+              outer: _outer,
+              viewportFraction: 0.5,
+              autoplayDelay: _autoplayDelay,
+              loop: false,
+              autoplay: _autoplay,
+              scrollDirection: Axis.vertical,
+              indicatorLayout: PageIndicatorLayout.COLOR,
+              autoplayDisableOnInteraction: _autoplayDisableOnInteraction,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       drawer: HomeDrawer(),
     );
