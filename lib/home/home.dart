@@ -17,6 +17,40 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final news = News.fetchAll();
 
+  int _itemCount;
+  bool _loop;
+  bool _autoplay;
+  int _autoplayDelay;
+  double _padding;
+  bool _outer;
+  double _radius;
+  double _viewportFraction;
+  int _currentIndex;
+  double _scale;
+  Axis _scrollDirection;
+  Curve _curve;
+  double _fade;
+  bool _autoplayDisableOnInteraction;
+
+  @override
+  void initState() {
+    _fade = 1.0;
+    _currentIndex = 0;
+    _curve = Curves.ease;
+    _scale = 0.9;
+    _radius = 10.0;
+    _padding = 0.0;
+    _loop = true;
+    _itemCount = 3;
+    _autoplay = false;
+    _autoplayDelay = 3000;
+    _viewportFraction = 0.8;
+    _outer = false;
+    _scrollDirection = Axis.horizontal;
+    _autoplayDisableOnInteraction = false;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     print("Home loaded");
@@ -29,11 +63,27 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             Expanded(
                 child: new Swiper(
-              itemCount: 5,
+              itemCount: _itemCount,
               itemHeight: 200.0,
               itemBuilder: _newsItem,
-              viewportFraction: 0.8,
-              scale: 0.9,
+              fade: _fade,
+              index: _currentIndex,
+              onIndexChanged: (int index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+              curve: _curve,
+              scale: _scale,
+              controller: new SwiperController(),
+              outer: _outer,
+              viewportFraction: _viewportFraction,
+              autoplayDelay: _autoplayDelay,
+              loop: _loop,
+              autoplay: _autoplay,
+              scrollDirection: _scrollDirection,
+              indicatorLayout: PageIndicatorLayout.COLOR,
+              autoplayDisableOnInteraction: _autoplayDisableOnInteraction,
             )),
             Expanded(
               flex: 2,
@@ -57,7 +107,8 @@ class _HomeState extends State<Home> {
             fit: BoxFit.cover,
           ),
           Container(
-            color: Colors.black.withOpacity(0.3),
+            color:
+                Colors.black.withOpacity((_currentIndex == index) ? 0.3 : 0.8),
             padding: const EdgeInsets.all(8.0),
             child: Text(this.news[index].title, style: TextStyle(fontSize: 16)),
             alignment: Alignment.bottomLeft,
