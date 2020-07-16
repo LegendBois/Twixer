@@ -31,9 +31,12 @@ class _HomeState extends State<Home> {
   Curve _curve;
   double _fade;
   bool _autoplayDisableOnInteraction;
+  bool _showDescription = true;
+  Duration _animationDuration;
 
   @override
   void initState() {
+    _showDescription = false;
     _fade = 1.0;
     _currentIndex = 0;
     _curve = Curves.ease;
@@ -41,13 +44,14 @@ class _HomeState extends State<Home> {
     _radius = 10.0;
     _padding = 0.0;
     _loop = true;
-    _itemCount = 3;
+    _itemCount = 5;
     _autoplay = false;
     _autoplayDelay = 3000;
     _viewportFraction = 0.8;
     _outer = false;
     _scrollDirection = Axis.horizontal;
     _autoplayDisableOnInteraction = false;
+    _animationDuration = Duration(milliseconds: 500);
     super.initState();
   }
 
@@ -108,19 +112,56 @@ class _HomeState extends State<Home> {
           ),
           AnimatedOpacity(
             opacity: (_currentIndex == index) ? 0.3 : 0.8,
-            duration: Duration(milliseconds: 600),
+            duration: _animationDuration,
             child: Container(
               color: Colors.black,
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(news[index].title, style: TextStyle(fontSize: 16)),
-            alignment: Alignment.bottomLeft,
+          IgnorePointer(
+            ignoring: _showDescription,
+            child: AnimatedAlign(
+              alignment:
+                  !_showDescription ? Alignment.bottomLeft : Alignment.topLeft,
+              duration: _animationDuration,
+              child: AnimatedOpacity(
+                opacity: _showDescription ? 1.0 : 0.0,
+                duration: _animationDuration,
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(news[index].imageLink,
+                      style: TextStyle(fontSize: 16)),
+                ),
+              ),
+            ),
+          ),
+          IgnorePointer(
+            ignoring: !_showDescription,
+            child: AnimatedAlign(
+              alignment:
+                  !_showDescription ? Alignment.bottomLeft : Alignment.topLeft,
+              duration: Duration(milliseconds: 400),
+              child: AnimatedOpacity(
+                opacity: !_showDescription ? 1.0 : 0.0,
+                duration: _animationDuration,
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child:
+                      Text(news[index].title, style: TextStyle(fontSize: 16)),
+                ),
+              ),
+            ),
+          ),
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _showDescription = !_showDescription;
+                });
+              },
+            ),
           ),
         ],
       ),
     );
-    ;
   }
 }
