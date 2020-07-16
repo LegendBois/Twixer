@@ -106,11 +106,16 @@ class _HomeState extends State<Home> {
             this.news[index].imageLink,
             fit: BoxFit.cover,
           ),
+          AnimatedOpacity(
+            opacity: (_currentIndex == index) ? 0.3 : 0.8,
+            duration: Duration(milliseconds: 600),
+            child: Container(
+              color: Colors.black,
+            ),
+          ),
           Container(
-            color:
-                Colors.black.withOpacity((_currentIndex == index) ? 0.3 : 0.8),
             padding: const EdgeInsets.all(8.0),
-            child: Text(this.news[index].title, style: TextStyle(fontSize: 16)),
+            child: Text(news[index].title, style: TextStyle(fontSize: 16)),
             alignment: Alignment.bottomLeft,
           ),
         ],
