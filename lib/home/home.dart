@@ -34,10 +34,6 @@ class _HomeState extends State<Home> {
               itemBuilder: _newsItem,
               viewportFraction: 0.8,
               scale: 0.9,
-              indicatorLayout: PageIndicatorLayout.COLOR,
-              pagination: new SwiperPagination(
-                  builder: const DotSwiperPaginationBuilder(
-                      size: 10.0, activeSize: 20.0, space: 10.0)),
             )),
             Expanded(
               flex: 2,
@@ -53,9 +49,20 @@ class _HomeState extends State<Home> {
   Widget _newsItem(BuildContext context, int index) {
     return new ClipRRect(
       borderRadius: new BorderRadius.all(new Radius.circular(10.0)),
-      child: Image.network(
-        this.news[index].imageLink,
-        fit: BoxFit.cover,
+      child: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Image.network(
+            this.news[index].imageLink,
+            fit: BoxFit.cover,
+          ),
+          Container(
+            color: Colors.black.withOpacity(0.3),
+            padding: const EdgeInsets.all(8.0),
+            child: Text(this.news[index].title, style: TextStyle(fontSize: 16)),
+            alignment: Alignment.bottomLeft,
+          ),
+        ],
       ),
     );
     ;
