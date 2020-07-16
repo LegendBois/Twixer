@@ -22,7 +22,8 @@ class Login extends StatelessWidget {
   }
 
   Future<String> _authUser(LoginData data, bool login) {
-    //return null; //testing
+    _loginUser(data.name, "TESTING");
+    return null; //testing
     //print('Name: ${data.name}, Password: ${data.password}');
     return api.login(data.name, data.password, login).then((response) {
       if (response[0] == "INVALID" || response[0] == null) {
