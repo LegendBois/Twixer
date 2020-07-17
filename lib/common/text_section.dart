@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:Twixer/style.dart' as style;
 
 class TextSection extends StatelessWidget {
   final String _title;
@@ -24,7 +25,7 @@ class TextSection extends StatelessWidget {
             padding: const EdgeInsets.all(_pad),
             child: Text(
               _body,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: style.Body2TextStyle,
             ),
           ),
         ]);

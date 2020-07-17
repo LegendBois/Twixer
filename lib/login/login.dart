@@ -63,7 +63,10 @@ class Login extends StatelessWidget {
         primaryColor: Color.fromARGB(255, 194, 50, 100),
         accentColor: Colors.white,
         inputTheme: InputDecorationTheme(
-          fillColor: Colors.white,
+          fillColor: Colors.black,
+        ),
+        textFieldStyle: TextStyle(
+          color: Colors.white,
         ),
       ),
       title: 'TWIXER',

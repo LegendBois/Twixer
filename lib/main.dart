@@ -66,8 +66,8 @@ class MyApp extends StatelessWidget {
         headline4: TitleTextStyleJulius,
         bodyText2: Body2TextStyle,
         bodyText1: Body1TextStyle,
-        subtitle1: Subtitle1TextStyle,
       ),
+
       //textTheme: TextTheme(),
       scaffoldBackgroundColor: Colors.black,
       brightness: Brightness.dark,

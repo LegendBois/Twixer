@@ -8,6 +8,7 @@ import 'homeappbar.dart';
 import 'package:Twixer/news/news_model.dart';
 import 'package:Twixer/game/game_model.dart';
 import 'package:Twixer/routes.dart';
+import 'package:Twixer/style.dart' as style;
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
@@ -119,7 +120,10 @@ class _HomeState extends State<Home> {
                     alignment: Alignment.topLeft,
                     width: 150,
                     padding: const EdgeInsets.all(16.0),
-                    child: Text(this.games[index].title),
+                    child: Text(
+                      this.games[index].title,
+                      style: style.BodyTextFancy,
+                    ),
                   ),
                   Container(
                     alignment: Alignment.topLeft,
@@ -127,7 +131,7 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.only(left: 16.0),
                     child: Text(
                       this.games[index].description,
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: style.Subtitle1TextStyle,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
