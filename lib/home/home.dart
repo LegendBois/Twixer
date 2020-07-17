@@ -100,7 +100,7 @@ class _HomeState extends State<Home> {
 
   Widget _gamesItem(BuildContext context, int index) {
     return new Card(
-      color: Color.fromARGB(120, 194, 50, 100),
+      color: Color.fromARGB(10, 194, 50, 100),
       child: Row(
         children: <Widget>[
           Image.network(
@@ -110,18 +110,34 @@ class _HomeState extends State<Home> {
             height: 150,
           ),
           Center(
-            child: Container(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(this.games[index].title),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.topLeft,
+                  width: 150,
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(this.games[index].title),
+                ),
+                Container(
+                  alignment: Alignment.topLeft,
+                  width: 150,
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: Text(
+                    this.games[index].description,
+                    style: Theme.of(context).textTheme.subtitle1,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                )
+              ],
             ),
           ),
         ],
       ),
       elevation: 3,
-      shadowColor: Color.fromARGB(255, 194, 50, 100),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5.0),
-      ),
+      // shape: RoundedRectangleBorder(
+      //   borderRadius: BorderRadius.circular(5.0),
+      // ),
     );
   }
 
@@ -154,7 +170,10 @@ class _HomeState extends State<Home> {
                 duration: _animationDuration,
                 child: Container(
                   padding: const EdgeInsets.all(16.0),
-                  child: Text(news[index].imageLink),
+                  child: Text(
+                    news[index].imageLink,
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
                 ),
               ),
             ),

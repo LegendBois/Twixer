@@ -59,6 +59,8 @@ class MyApp extends StatelessWidget {
       textTheme: TextTheme(
         headline6: TitleTextStyle,
         bodyText2: Body2TextStyle,
+        bodyText1: Body1TextStyle,
+        subtitle1: Subtitle1TextStyle,
       ),
       //textTheme: TextTheme(),
       scaffoldBackgroundColor: Colors.black,
