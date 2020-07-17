@@ -1,3 +1,4 @@
+import 'package:Twixer/game/game.dart';
 import 'package:flutter/material.dart';
 
 import 'home/home.dart';
@@ -38,6 +39,9 @@ class MyApp extends StatelessWidget {
         case LoginRoute:
           screen = Login();
           break;
+        case GameRoute:
+          screen = GameDetail(arguments['game']);
+          break;
         default:
           screen = SplashScreen();
           break;
@@ -58,6 +62,7 @@ class MyApp extends StatelessWidget {
       ),
       textTheme: TextTheme(
         headline6: TitleTextStyle,
+        headline5: TitleTextStyleJulius,
         bodyText2: Body2TextStyle,
         bodyText1: Body1TextStyle,
         subtitle1: Subtitle1TextStyle,

@@ -7,6 +7,7 @@ import 'homedrawer.dart';
 import 'homeappbar.dart';
 import 'package:Twixer/news/news_model.dart';
 import 'package:Twixer/game/game_model.dart';
+import 'package:Twixer/routes.dart';
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
@@ -99,46 +100,54 @@ class _HomeState extends State<Home> {
   }
 
   Widget _gamesItem(BuildContext context, int index) {
-    return new Card(
-      color: Color.fromARGB(10, 194, 50, 100),
-      child: Row(
-        children: <Widget>[
-          Image.network(
-            this.games[index].imageLink,
-            fit: BoxFit.fitHeight,
-            width: 100,
-            height: 150,
-          ),
-          Center(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.topLeft,
-                  width: 150,
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(this.games[index].title),
-                ),
-                Container(
-                  alignment: Alignment.topLeft,
-                  width: 150,
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: Text(
-                    this.games[index].description,
-                    style: Theme.of(context).textTheme.subtitle1,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                )
-              ],
+    return new GestureDetector(
+      onTap: () => _onGameTap(context, index),
+      child: Card(
+        color: Color.fromARGB(10, 194, 50, 100),
+        child: Row(
+          children: <Widget>[
+            Image.network(
+              this.games[index].imageLink,
+              fit: BoxFit.fitHeight,
+              width: 100,
+              height: 150,
             ),
-          ),
-        ],
+            Center(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    alignment: Alignment.topLeft,
+                    width: 150,
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(this.games[index].title),
+                  ),
+                  Container(
+                    alignment: Alignment.topLeft,
+                    width: 150,
+                    padding: const EdgeInsets.only(left: 16.0),
+                    child: Text(
+                      this.games[index].description,
+                      style: Theme.of(context).textTheme.subtitle1,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        elevation: 3,
+        // shape: RoundedRectangleBorder(
+        //   borderRadius: BorderRadius.circular(5.0),
+        // ),
       ),
-      elevation: 3,
-      // shape: RoundedRectangleBorder(
-      //   borderRadius: BorderRadius.circular(5.0),
-      // ),
     );
+  }
+
+  _onGameTap(BuildContext context, int index) {
+    Navigator.pushNamed(context, GameRoute,
+        arguments: {"game": this.games[index]});
   }
 
   Widget _newsItem(BuildContext context, int index) {

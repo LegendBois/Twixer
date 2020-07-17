@@ -67,7 +67,7 @@ flutter:
     - family: Megrim
       fonts:
         - asset: assets/fonts/Megrim-Regular.ttf
-          weight: 300
+          weight: 600
 
     - family: Julius Sans One
       fonts:

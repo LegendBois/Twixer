@@ -41,10 +41,10 @@ const Body1TextStyle = TextStyle(
 
 const Body2TextStyle = TextStyle(
   shadows: [
-    Shadow(offset: Offset(1, 1), color: Colors.black),
+    Shadow(offset: Offset(1, 1), color: Colors.white),
   ],
   fontFamily: StyledFontName,
-  fontWeight: FontWeight.w300,
+  fontWeight: FontWeight.w600,
   fontSize: BodyTextSize,
   color: Colors.white,
 );
@@ -56,5 +56,15 @@ const Subtitle1TextStyle = TextStyle(
   fontFamily: SubsFontName,
   fontWeight: FontWeight.w300,
   fontSize: SmallTextSize,
+  color: Colors.white,
+);
+
+const TitleTextStyleJulius = TextStyle(
+  shadows: [
+    Shadow(offset: Offset(1, 1), color: Colors.black),
+  ],
+  fontFamily: FontNameDefault,
+  fontWeight: FontWeight.w600,
+  fontSize: LargeTextSize,
   color: Colors.white,
 );
