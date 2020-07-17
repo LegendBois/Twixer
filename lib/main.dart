@@ -62,7 +62,8 @@ class MyApp extends StatelessWidget {
       ),
       textTheme: TextTheme(
         headline6: TitleTextStyle,
-        headline5: TitleTextStyleJulius,
+        headline5: TitleTextStyleJuliusR,
+        headline4: TitleTextStyleJulius,
         bodyText2: Body2TextStyle,
         bodyText1: Body1TextStyle,
         subtitle1: Subtitle1TextStyle,

@@ -17,7 +17,7 @@ class TextSection extends StatelessWidget {
             padding: const EdgeInsets.all(_pad),
             child: Text(
               _title,
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headline4,
             ),
           ),
           Container(

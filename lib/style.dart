@@ -68,3 +68,13 @@ const TitleTextStyleJulius = TextStyle(
   fontSize: LargeTextSize,
   color: Colors.white,
 );
+
+const TitleTextStyleJuliusR = TextStyle(
+  shadows: [
+    Shadow(offset: Offset(1, 1), color: Colors.black),
+  ],
+  fontFamily: FontNameDefault,
+  fontWeight: FontWeight.w600,
+  fontSize: MediumTextSize,
+  color: Colors.white,
+);
