@@ -122,7 +122,7 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
                       this.games[index].title,
-                      style: style.BodyTextFancy,
+                      style: style.SubTitleTextGame,
                     ),
                   ),
                   Container(
@@ -131,7 +131,7 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.only(left: 16.0),
                     child: Text(
                       this.games[index].description,
-                      style: style.Subtitle1TextStyle,
+                      style: style.DescTextGame,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),

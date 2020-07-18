@@ -18,7 +18,7 @@ class HomeDrawer extends StatelessWidget {
             ),
             accountEmail: Text(
               "test@twixer.com",
-              style: style.Subtitle1TextStyle,
+              style: style.DescTextGame,
             ),
             currentAccountPicture: Image.asset(
               "assets/images/twixer_logo_icon.png",

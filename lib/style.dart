@@ -96,3 +96,24 @@ const TitleTextStyleJuliusR = TextStyle(
   fontSize: MediumTextSize,
   color: Colors.white,
 );
+
+const TitleTextGame = TextStyle(
+  fontFamily: FontNameDefault,
+  fontWeight: FontWeight.w600,
+  fontSize: LargeTextSize,
+  color: Colors.white,
+);
+
+const SubTitleTextGame = TextStyle(
+  fontFamily: FontNameDefault,
+  fontWeight: FontWeight.w600,
+  fontSize: BodyTextSize,
+  color: Colors.white,
+);
+
+const DescTextGame = TextStyle(
+  fontFamily: "Montserrat",
+  fontWeight: FontWeight.w300,
+  fontSize: SmallTextSize,
+  color: Colors.white,
+);

@@ -6,7 +6,7 @@ class SocialLinks extends StatelessWidget {
     return Container(
         alignment: Alignment.centerLeft,
         constraints: BoxConstraints.expand(
-          height: 100.0,
+          height: 80.0,
         ),
         padding: EdgeInsets.only(left: 16.0),
         decoration: BoxDecoration(color: Colors.black),

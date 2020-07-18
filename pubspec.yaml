@@ -74,6 +74,14 @@ flutter:
       fonts:
         - asset: assets/fonts/JuliusSansOne-Regular.ttf
           weight: 300
+    - family: Black Ops One
+      fonts:
+        - asset: assets/fonts/BlackOpsOne-Regular.ttf
+          weight: 300
+    - family: Poiret One
+      fonts:
+        - asset: assets/fonts/PoiretOne-Regular.ttf
+          weight: 300
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
